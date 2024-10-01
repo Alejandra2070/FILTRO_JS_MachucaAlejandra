@@ -1,33 +1,33 @@
-var link = 'https://imdb.iamidiotareyoutoo.com/justwatch?q=22'
+let int = document.getElementById("input").value
+let link = 'https://imdb.iamidiotareyoutoo.com/justwatch?q=22' + int;
 let busqueda = document.getElementById("info-data")
 
-mostrar(link)
 
 function mostrar(link) {
     fetch(link)
     .then(res => res.json())
     .then(data => {
         console.log(data);
-        var infos = ""
-
+        let infos = ""
+        
         data.description.forEach(e => {
             infos+=`
             <div class="card">
-                <h2 class="titulo">${e.title}</h2>
-                <p class="año">Año: ${e.year}</p><p></p>
-                <p class="id">Identificador: ${e.id}</p>
-                <a class="boton" href="${e.url}">Url</a>
-                <p class="tipo">Tipo: ${e.type}</p>
-                <img id="imgs" src="${e.photo_url}"></p>
+            <h2 class="titulo">${e.title}</h2>
+            <p class="año">Año: ${e.year}</p><p></p>
+            <p class="id">Identificador: ${e.id}</p>
+            <a class="boton" href="${e.url}">Url</a>
+            <p class="tipo">Tipo: ${e.type}</p>
+            <img id="imgs" src="${e.photo_url}"></p>
             </div>
             `
         })
         busqueda.innerHTML=infos
     });
-
+    
     document.getElementById("input").addEventListener("keyup", e => {
         const search = e.target.value.toLowerCase();
-
+        
         document.querySelectorAll(".card").forEach(element => {
             const titulo = element.querySelector(".titulo").textContent.toLowerCase();
             const año = element.querySelector(".año").textContent.toLowerCase();
@@ -43,16 +43,4 @@ function mostrar(link) {
         })
     })
 }
-
-
-
-/*const url = 'https://imdb.iamidiotareyoutoo.com/search';
-const options = {method: 'GET'};
-
-try {
-  const response = await fetch(url, options);
-  const data = await response.json();
-  console.log(data);
-} catch (error) {
-  console.error(error);
-}*/
+mostrar(link)

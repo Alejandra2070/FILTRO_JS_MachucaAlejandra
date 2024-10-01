@@ -1,16 +1,15 @@
-var link = 'https://imdb.iamidiotareyoutoo.com/justwatch?q=22'
-
+let int = document.getElementById("input").value
+let link = 'https://imdb.iamidiotareyoutoo.com/justwatch?q=22' + int;
 let mas = document.getElementById("info-data")
 
-mostrar2(link)
 
 function mostrar2(link){
     fetch(link)
     .then(res => res.json())
     .then(data => {
         console.log(data)
-        var infos = ""
-
+        let infos = ""
+        
         data.description.forEach(e => {
             infos+=`
             <div class="card">
@@ -22,5 +21,22 @@ function mostrar2(link){
             `
         })
         mas.innerHTML=infos
+    });
+
+    document.getElementById("input").addEventListener("keyup", e => {
+        const search = e.target.value.toLowerCase();
+        
+        document.querySelectorAll(".card").forEach(element => {
+            const año = element.querySelector(".año").textContent.toLowerCase();
+            const tipo = element.querySelector(".tipo").textContent.toLowerCase();
+            const titulo = element.querySelector(".titulo").textContent.toLowerCase();
+            if (titulo.includes(search)||año.includes(search)||tipo.includes(search)){
+                element.classList.remove("filtro");
+            }
+            else{
+                element.classList.add("filtro");
+            }
+        })
     })
 }
+mostrar2(link)
